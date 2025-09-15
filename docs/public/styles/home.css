@@ -1,0 +1,200 @@
+:root {
+  --bg: #0f172a;
+  --surface: #111827;
+  --tile: #182233; /* slightly darker than chart bg to boost contrast */
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --brand: #60a5fa;
+  --danger: #ef4444;
+  --radius: 14px;
+  --gap: 24px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #1c2436;;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.header-inner {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* use spacer to push right-side content */
+}
+.spacer { flex: 1 1 auto; }
+.user-login { margin-right: 12px; color: var(--muted); font-weight: 600; }
+.logo-image {
+  height: 28px;
+  width: auto;
+}
+.logout-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.logout-btn:hover { filter: brightness(0.95); }
+
+/* Page layout */
+.page { padding: 24px 20px 40px; }
+
+.profile-card.tile { margin-bottom: var(--gap); }
+.profile-header h1 { margin: 0; font-size: 1.4rem; }
+.muted { color: var(--muted); margin: 6px 0 0; }
+
+.profile-details { margin-top: 10px; }
+.profile-details summary {
+  cursor: pointer;
+  color: var(--muted);
+  list-style: none;
+}
+.profile-details summary::-webkit-details-marker { display: none; }
+.details-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: 10px 16px;
+}
+.details-grid .row { display: flex; justify-content: space-between; gap: 12px; }
+.details-grid .row strong { color: #cbd5e1; font-weight: 600; }
+
+/* Dashboard grid */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+/* KPI row uses 3-up inside full width of dashboard */
+.kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); grid-column: 1 / -1; }
+
+/* Large charts row: 2-up layout to avoid awkward gaps */
+.charts-grid-lg { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); grid-column: 1 / -1; }
+.charts-grid-lg > #skills-histogram,
+.charts-grid-lg > #xp-podium { grid-column: auto; min-height: 420px; }
+/* Ensure XP Over Time stretches across the full row within the charts grid */
+.charts-grid-lg > #xp-over-time-chart { grid-column: 1 / -1; min-height: 420px; }
+
+/* Reusable tile (safe for injected content) */
+.tile {
+  background: var(--tile);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+  min-height: 300px;
+}
+.tile table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tile th, .tile td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.tile th { text-align: left; color: #cbd5e1; background: #1f2937; }
+.kpi { min-height: 220px; }
+.kpi-row > .kpi { display: flex; }
+.kpi-row > .kpi > * { margin: 0; width: 100%; }
+.wide { grid-column: 1 / span 3; min-height: 240px; }
+
+/* Make key charts larger and easier to read */
+/* handled by .charts-grid-lg rules above */
+/* keep explicit min-height for robustness */
+#xp-over-time-chart { min-height: 420px; }
+#xp-podium { min-height: 420px; }
+#xp-podium { max-height: 470px; }
+
+/* Increase perceived contrast of Up/Down bars without touching SVG with explicit fills */
+#audit-ratio-svg svg rect:not([fill]) { fill: #60a5fa; }
+
+/* Prevent external CSS from overriding injected SVG colors */
+#skills-histogram svg,
+#xp-over-time-chart svg,
+#xp-podium svg,
+#audit-ratio-svg svg { display: block; max-width: 100%; height: auto; }
+
+/* Make Skills chart more prominent and legible */
+#skills-histogram { min-height: 420px; }
+#skills-histogram svg text { font-size: 14px !important; fill: #eaf2ff !important; }
+/* Enhance bar visibility without editing injected SVG JS */
+#skills-histogram svg rect[fill="#60a5fa"] { filter: saturate(1.1) brightness(1.08); }
+
+/* Keep tables readable without touching widget-scoped styles */
+#recent-activities, #recent-audits { overflow: hidden; }
+#audit-ratio-summary { overflow: hidden; }
+
+/* Center the small audit SVG inside its tile and add breathing room */
+#audit-ratio-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;              /* show tile background as a border */
+  box-sizing: border-box;     /* ensure padding doesn't cause overflow */
+  max-width: 100%;
+  overflow: hidden;           /* clip any overflow to tile radius */
+}
+#audit-ratio-svg svg {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;               /* fill the host height so chart grows vertically */
+  display: block;
+}
+
+/* Give the XP podium chart the same inner border/padding treatment */
+#xp-podium {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;              /* show tile background as a border */
+  box-sizing: border-box;     /* prevent overflow when chart sizes to host */
+  max-width: 100%;
+  overflow: hidden;
+}
+#xp-podium svg { width: 100%; height: 100%; display: block; }
+
+/* Make the summary panel fill the tile width with the same inner-surface look */
+#audit-ratio-summary > div {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  background: #1f2937 !important; /* inner surface like other charts */
+  color: #e5e7eb !important;
+  border-radius: 12px !important;
+  padding: 24px 28px !important;
+  box-sizing: border-box !important; /* prevent padding from exceeding tile width */
+  box-shadow: none !important;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .dashboard { grid-template-columns: repeat(2, 1fr); }
+  .wide { grid-column: 1 / span 2; }
+  #xp-over-time-chart, #xp-podium { grid-column: 1 / span 2; min-height: 360px; }
+  #skills-histogram { grid-column: 1 / span 2; min-height: 360px; }
+  .charts-grid-lg { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .dashboard { grid-template-columns: 1fr; }
+  .wide { grid-column: 1 / span 1; }
+  .details-grid { grid-template-columns: 1fr; }
+  #xp-over-time-chart, #xp-podium { grid-column: 1 / span 1; min-height: 300px; }
+  #skills-histogram { grid-column: 1 / span 1; min-height: 300px; }
+  .kpi-row { grid-template-columns: 1fr; }
+}

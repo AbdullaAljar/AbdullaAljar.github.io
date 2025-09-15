@@ -1,0 +1,114 @@
+/* Login page styling aligned with the home page theme */
+
+:root {
+  --bg: #0f172a;
+  --surface: #111827;
+  --tile: #182233;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --brand: #60a5fa;
+  --danger: #ef4444;
+  --radius: 14px;
+  --gap: 24px;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Center the login card vertically and horizontally */
+#login-container {
+  min-height: 100vh;
+  display: grid;
+  justify-items: center;     /* center each child horizontally */
+  align-content: center;     /* center the rows within the viewport */
+  grid-auto-rows: max-content;
+  row-gap: 12px;             /* space between form and message */
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Login card */
+#login-form {
+  width: 100%;
+  max-width: 500px;
+  background: var(--tile);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  padding: 39px 33px 39px;
+  box-sizing: border-box;
+}
+
+#login-form h2 {
+  margin: 0 0 16px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+#login-form label {
+  display: block;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #0f1a2b;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+}
+
+#login-form input[type="text"]:focus,
+#login-form input[type="password"]:focus {
+  border-color: rgba(96,165,250,0.75);
+  box-shadow: 0 0 0 3px rgba(96,165,250,0.15);
+}
+
+#login-form > div { margin-bottom: 14px; }
+
+#login-form button[type="submit"] {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: var(--brand);
+  color: #0b1220;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#login-form button[type="submit"]:hover {
+  filter: brightness(0.95);
+}
+
+/* Output area for login messages */
+#output {
+  width: 100%;
+  max-width: 380px;
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+#output.error {
+  color: #fecaca;               /* light red text */
+  background: #7f1d1d;          /* dark red background */
+  border: 1px solid #ef4444;    /* red border */
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+/* Small screens */
+@media (max-width: 420px) {
+  #login-form { padding: 18px; }
+}

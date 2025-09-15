@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="public/styles/home.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="public/images/Reboot-Logo.png" alt="reboot logo" class="logo-image">
+      </div>
+      <div class="spacer"></div>
+      <button id="logout-btn" class="logout-btn" aria-label="Logout">Logout</button>
+    </div>
+  </header>
+
+  <div class="container page">
+    <section class="profile-card tile">
+      <div class="profile-header">
+        <h1>Welcome, <span id="first-name"></span></h1>
+        <p class="muted">Here’s your learning progress and recent activity.</p>
+      </div>
+
+      <details class="profile-details" open>
+        <summary>Profile details</summary>
+        <div class="details-grid">
+          <div class="row"><strong>Name</strong><span id="full-name"></span></div>
+          <div class="row"><strong>Gender</strong><span id="gender"></span></div>
+          <div class="row"><strong>Country</strong><span id="country"></span></div>
+          <div class="row"><strong>Job title</strong><span id="job-title"></span></div>
+          <div class="row"><strong>CPR num</strong><span id="cpr-number"></span></div>
+          <div class="row"><strong>Phone</strong><span id="phone-number"></span></div>
+          <div class="row"><strong>City</strong><span id="address-city"></span></div>
+        </div>
+      </details>
+    </section>
+
+    <main class="dashboard">
+      <!-- KPIs / Summary (3-up) -->
+      <section class="kpi-row">
+        <div id="level-card" class="tile kpi"></div>
+        <div id="audit-ratio-summary" class="tile kpi"></div>
+        <div id="audit-ratio-svg" class="tile kpi"></div>
+      </section>
+
+      <!-- Charts (2-up, larger footprint) -->
+      <section class="charts-grid-lg">
+        <div id="skills-histogram" class="tile"></div>
+        <div id="xp-podium" class="tile"></div>
+        <div id="xp-over-time-chart" class="tile"></div>
+      </section>
+
+      <!-- Tables (full width) -->
+      <div id="recent-activities" class="tile wide"></div>
+      <div id="recent-audits" class="tile wide"></div>
+    </main>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
